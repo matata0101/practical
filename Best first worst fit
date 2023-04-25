@@ -1,0 +1,196 @@
+i.)BEST FIT ii.)WORST FIT iii.)FIRST FIT
+
+#include <bits/stdc++.h> using namespace std;
+
+void worstfit(int *blocksize, int m, int *processsize, int n)
+
+{
+
+int allocation[n];
+
+memset(allocation, -1, sizeof(allocation)); for (int i = 0; i < n; i++)
+
+{
+
+int wstidx = -1;
+
+for (int j = 0; j < m; j++)
+
+{
+
+if (blocksize[j] >= processsize[i])
+
+{
+
+if (wstidx == -1) wstidx = j;
+
+else if (blocksize[wstidx] < blocksize[j]) wstidx = j;
+
+}
+
+}
+
+if (wstidx != -1)
+
+{
+
+allocation[i] = wstidx; blocksize[wstidx] -= processsize[i];
+
+}
+
+}
+
+cout << "\nProcess No.\tProcess Size\tBlock no.\n"; for (int i = 0; i < n; i++)
+
+{
+
+cout << " " << i + 1 << "\t\t" << processsize[i] << "\t\t"; if (allocation[i] != -1)
+
+cout << allocation[i] + 1; else
+
+cout << "Not Allocated"; cout << endl;
+
+}
+
+}
+
+void bestfit(int *blocksize, int m, int *processsize, int n)
+
+{
+
+int allocation[n];
+
+memset(allocation, -1, sizeof(allocation)); for (int i = 0; i < n; i++)
+
+{
+
+int bestidx = -1;
+
+for (int j = 0; j < m; j++)
+
+{
+
+if (blocksize[j] >= processsize[i])
+
+{
+
+if (bestidx == -1) bestidx = j;
+
+else if (blocksize[bestidx] > blocksize[j]) bestidx = j;
+
+}
+
+}
+
+if (bestidx != -1)
+
+{
+
+allocation[i] = bestidx; blocksize[bestidx] -= processsize[i];
+
+}
+
+}
+
+cout << "\nProcess No.\tProcess Size\tBlock no.\n"; for (int i = 0; i < n; i++)
+
+{
+
+cout << " " << i + 1 << "\t\t" << processsize[i] << "\t\t"; if (allocation[i] != -1)
+
+cout << allocation[i] + 1; else
+
+cout << "Not Allocated"; cout << endl;
+
+}
+
+}
+
+void firstfit(int *blocksize, int m, int *processsize, int n)
+
+{
+
+int allocation[n];
+
+memset(allocation, -1, sizeof(allocation));
+
+for (int i = 0; i < n; i++)
+
+{
+
+for (int j = 0; j < m; j++)
+
+{
+
+if (blocksize[j] >= processsize[i])
+
+{
+
+allocation[i] = j;
+
+blocksize[j] -= processsize[i]; break;
+
+}
+
+}
+
+}
+
+cout << "\nProcess No.\tProcess Size\tBlock no.\n"; for (int i = 0; i < n; i++)
+
+{
+
+cout << "" << i + 1 << "\t\t" << processsize[i] << "\t\t"; if (allocation[i] != -1)
+
+cout << allocation[i] + 1 << endl; else
+
+cout << "NOT ALLOCATED" << endl;
+
+}
+
+}
+
+int main()
+
+{
+
+int n;
+
+cout << "processes?" << endl; cin >> n;
+
+int processsize[n];
+
+for (int i = 0; i < n; i++) cin >> processsize[i];
+
+int m;
+
+cout << "memory_blocks?" << endl; cin >> m;
+
+int blocksize[m];
+
+for (int i = 0; i < m; i++) cin >> blocksize[i];
+
+int choice;
+
+cout <<”enter choice” << endl;
+
+switch (choice)
+
+{
+
+Case 1 : firstfit(blocksize, m, processsize, n); break;
+
+case 2:
+
+bestfit(blocksize, m, processsize, n); break;
+
+case 3:
+
+worstfit(blocksize, m, processsize, n);
+
+}
+
+return 0;
+
+}
+
