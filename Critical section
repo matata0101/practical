@@ -1,0 +1,29 @@
+#include <iostream> #include <mutex> #include <thread> using namespace std;
+
+mutex mtx; // Mutex lock void critical_section()
+
+{
+
+// Lock the mutex mtx.lock();
+
+// Access and modify shared resources here
+
+cout << "Entering critical section..." << endl; this_thread::sleep_for(chrono::milliseconds(1000)); // Simulate work cout << "Exiting critical section..." << endl;
+
+// Unlock the mutex mtx.unlock();
+
+}
+
+int main()
+
+{
+
+// Create multiple threads to access the critical section thread t1(critical_section);
+
+thread t2(critical_section);
+
+// Wait for threads to finish t1.join();
+
+t2.join(); return 0;
+
+}
