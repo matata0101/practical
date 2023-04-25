@@ -1,0 +1,69 @@
+Pre-emptive Priority Scheduling:
+
+#include <iostream> using namespace std;
+
+int main()
+
+{
+
+int i, j, n, tim, sum_wait = 0, sum_turnaround = 0, smallest; // tim for time
+
+int at[10], bt[10], pt[10], rt[10], remain;	// rt = remaining time
+
+cout << "Enter no. of processes : "; cin >> n;
+
+remain = n;
+
+for (i = 0; i < n; i++)
+
+{
+
+cout << "Enter arrival time, burst time and priority for process p" << i + 1 << ": ";
+
+cin >> at[i] >> bt[i] >> pt[i]; rt[i] = bt[i];
+
+}
+
+pt[9] = 11;
+
+cout << "\n\nProcess\t|Turnaround time|waiting time\n"; for (tim = 0; remain != 0; tim++)
+
+{
+
+smallest = 9;
+
+for (i = 0; i < n; i++)
+
+{
+
+if (at[i] <= tim && pt[i] < pt[smallest] && rt[i] > 0)
+
+{
+
+smallest = i;
+
+}
+
+}
+
+rt[smallest]--;
+
+if (rt[smallest] == 0)
+
+{
+
+remain--;
+
+cout << "P[" << smallest + 1 << "]\t|\t\t" << tim + 1 - at[smallest] << "\t\t|\t\t" << tim + 1 - at[smallest] - bt[smallest] << "\n";
+
+sum_wait += tim + 1 - at[smallest];
+
+sum_turnaround += tim + 1 - at[smallest] - bt[smallest];
+
+}
+
+}
+
+cout << "\nAvg waiting time = " << sum_wait * 1.0 / n << "\n"; cout << "Avg turnarround time = " << sum_turnaround * 1.0 / n; return 0;
+
+}
