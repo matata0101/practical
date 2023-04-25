@@ -1,0 +1,96 @@
+ROUND ROBIN ALGORITHM:
+
+#include <iostream> using namespace std;
+
+int main()
+
+{
+
+int c, j, n, t, r, f = 0, timeq;
+
+int wt = 0, tt = 0, at[10], bt[10], rt[10];
+
+cout << "Enter Total Processes: "; cin >> n;
+
+r = n;
+
+for (c = 0; c < n; c++)
+
+{
+
+cout << "Enter Arrival Time and corresponding Burst Time: "; cin >> at[c] >> bt[c];
+
+rt[c] = bt[c];
+
+}
+
+cout << "Enter Time Quantam: "; cin >> timeq;
+
+for (t = 0, c = 0; r != 0;)
+
+{
+
+if (rt[c] <= timeq && rt[c] > 0)
+
+{
+
+t += rt[c];
+
+rt[c] = 0;
+
+f = 1;
+
+}
+
+else if (rt[c] > 0)
+
+{
+
+rt[c] -= timeq; t += timeq;
+
+}
+
+if (rt[c] == 0 && f == 1)
+
+{
+
+r--;
+
+wt += t - at[c] - bt[c]; tt += t - at[c];
+
+f = 0;
+
+}
+
+if (c == n - 1)
+
+{
+
+c = 0;
+
+}
+
+else if (at[c + 1] <= t)
+
+{
+
+c++;
+
+}
+
+else
+
+{
+
+c = 0;
+
+}
+
+}
+
+cout << "Average Waiting Time = " << wt * 1.0 / n;
+
+cout << "\nAvg Turnaround Time = " << tt * 1.0 / n << endl; return 0;
+
+}
+
